@@ -1,0 +1,49 @@
+<%- include ("../../partials/header.ejs") %>
+<%- include ("../../partials/navbar.ejs")%>
+
+<body>
+
+    <div class="container">
+        <hr>
+        <div class="card">
+            <div class="card-header">
+                <h2>Novo Artigo</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/articles/save" enctype="multipart/form-data">
+                    <input type="text" class="form-control" name="title" placeholder="Titulo do artigo"/><br>
+                    <textarea name="body" class="form-control" id="article"></textarea><br>
+                    <select name="categoryId" class="form-control">
+                        <% categories.forEach((category)=>{%>
+                            <option value ="<%= category.id %>"><%= category.title%></option>
+                        <%}) %>
+                    </select>
+                    <br>
+                    <div class="preview">
+                        <h2>Preview</h2>
+                    <textarea name="description" class="form-control" placeholder="Descreva o artigo em poucas palavras"></textarea>
+                    <br>
+                    <input type="file" class="form-control" name="image"/>
+                    </div><!--preview-->
+                    <br>
+                    <button class="btn btn-success">Cadastrar</button>
+                </form>
+            </div>
+        </div><!--card-->
+    </div><!--container-->
+
+</body>
+
+<%- include ("../../partials/footer.ejs") %>
+<script src="/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        selector: "#article",
+        plugins: [
+            'advlist', 'autolink', 'link',  'image', 'lists', 'print', 
+            'preview', 'hr', 'searchreplace', 'wordcount', 'fullscreen', 
+            'insertdatetime', 'media', 'save', 'table', 'paste', 'emoticons'
+        ]
+
+    })
+</script>

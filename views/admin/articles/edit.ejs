@@ -1,0 +1,54 @@
+<%- include ("../../partials/header.ejs") %>
+<%- include ("../../partials/navbar.ejs")%>
+
+<body>
+
+    <div class="container">
+        <hr>
+        <div class="card">
+            <div class="card-header">
+                <h2>Editar Artigo</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/articles/update" >
+                    <input type="hidden" name="id" value="<%= article.id %>"/>
+                    <input type="text" class="form-control" name="title" value="<%=article.title%>"/><br>
+                    <textarea name="body" class="form-control" id="article"><%=article.body%></textarea><br>
+                    <select name="categoryId" class="form-control">
+                        <% categories.forEach((category)=>{%>
+                            <% if(category.id == article.categoryId){ %>
+                                <option value ="<%= category.id %>" selected='<%= category.title %>'><%= category.title%></option>
+                            <%}else{ %>
+                                <option value ="<%= category.id %>"><%= category.title%></option>
+                            <%} %>
+                        <%}) %>
+                    </select>
+                    <br>
+                    <div class="preview">
+                        <h2>Preview</h2>
+                    <textarea name="description" class="form-control"><%= article.description %></textarea>
+                    <br>
+                    <input type="file" class="form-control"  name="image"/>
+                    </div><!--preview-->
+                    <br>
+                    <button class="btn btn-success">Atualizar</button>
+                </form>
+            </div>
+        </div><!--card-->
+    </div><!--container-->
+
+</body>
+
+<%- include ("../../partials/footer.ejs") %>
+<script src="/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        selector: "#article",
+        plugins: [
+            'advlist', 'autolink', 'link',  'image', 'lists', 'print', 
+            'preview', 'hr', 'searchreplace', 'wordcount', 'fullscreen', 
+            'insertdatetime', 'media', 'save', 'table', 'paste', 'emoticons'
+        ]
+
+    })
+</script>
